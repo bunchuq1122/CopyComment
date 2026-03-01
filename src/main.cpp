@@ -8,14 +8,16 @@ class $modify(CommentCopyCell, CommentCell) {
 
 	void loadFromComment(GJComment* comment) {
 		CommentCell::loadFromComment(comment);
-		if (!this->m_comment->m_isSpam && !this->getChildByID(Mod::get()->getID() + "/copy-comment")) {
+        auto id = Mod::get()->getID() + "/copy-comment";
+		if (!this->m_comment->m_isSpam && !this->getChildByID(id)) {
             addCopyButton();
         }
 	}
 
 	void onUnhide(CCObject* sender) {
 		CommentCell::onUnhide(sender);
-		if (!this->getChildByID(Mod::get()->getID() + "/copy-comment")) {
+        auto id = Mod::get()->getID() + "/copy-comment";
+		if (!this->getChildByID(id)) {
             addCopyButton();
         }
 	}
@@ -25,7 +27,7 @@ class $modify(CommentCopyCell, CommentCell) {
         menu->setPosition({0, 0});
         this->addChild(menu, 1); 
         
-        auto sprite = ButtonSprite::create("Copy");
+        auto sprite = CCSprite::createWithSpriteFrameName("GJ_copyBtn_001.png");
         sprite->setScale(0.5f);
 
         auto size = this->getContentSize();
@@ -35,7 +37,6 @@ class $modify(CommentCopyCell, CommentCell) {
         }
         if (this->m_comment->m_hasLevelID) {
             pos.setPoint(160.f,60.f);
-            sprite->setString("C");
         }
         if(this->m_accountComment) {
             pos.setPoint(230.f, 70.f);
