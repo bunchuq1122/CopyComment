@@ -19,5 +19,13 @@
 			"default": true,
 			"description": "Add the username to the beginning of the copied comment."
 		}
-	}
+	},
+	"links": {
+		"community": "https://github.com/bunchuq1122/CopyComment",
+		"source": "https://github.com/bunchuq1122/CopyComment"
+	},
+	"tags": [
+		"enhancement",
+		"interface"
+	]
 }
