@@ -1,11 +1,11 @@
 {
-	"geode": "5.2.0",
+	"geode": "5.3.0",
 	"gd": {
 		"win": "2.2081"
 	},
 	"id": "bunchuq1122.commentcopy",
 	"name": "CommentCopy",
-	"version": "v1.0.1",
+	"version": "v1.0.2",
 	"developer": "Bunchuq1122",
 	"description": "Copy the Comment!",
 	"settings": {
@@ -29,5 +29,8 @@
 	"tags": [
 		"enhancement",
 		"interface"
-	]
+	],
+	"dependencies": {
+		"geode.node-ids": ">=1.22.0"
+	}
 }
