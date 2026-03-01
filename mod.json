@@ -14,6 +14,12 @@
 			"type": "bool",
 			"default": true,
 			"description": "Add the username to the beginning of the copied comment."
+		},
+		"popup": {
+			"name": "Show popup",
+			"type": "bool",
+			"default": true,
+			"description": "Show popup when copying a comment"
 		}
 	},
 	"links": {

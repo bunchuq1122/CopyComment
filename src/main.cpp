@@ -28,18 +28,26 @@ class $modify(CommentCopyCell, CommentCell) {
         auto sprite = ButtonSprite::create("Copy");
         sprite->setScale(0.5f);
 
+        auto size = this->getContentSize();
+        CCPoint pos = {240.f, 60.f};
+        if(this->m_compactMode) {
+            pos.setPoint(240.f,28.f);
+        }
+        if (this->m_comment->m_hasLevelID) {
+            pos.setPoint(160.f,60.f);
+            sprite->setString("C");
+        }
+        if(this->m_accountComment) {
+            pos.setPoint(230.f, 70.f);
+        }
+
         auto btn = CCMenuItemSpriteExtra::create(
             sprite,
             this,
             menu_selector(CommentCopyCell::onCopy)
         );
         btn->setID(Mod::get()->getID() + "/copy-comment");
-
-        auto size = this->getContentSize();
-        btn->setPosition({
-            242.f,
-            60.f
-        });
+        btn->setPosition(pos);
 
         menu->addChild(btn);
     }
@@ -56,10 +64,13 @@ class $modify(CommentCopyCell, CommentCell) {
 			geode::utils::clipboard::write("@" + m_comment->m_userName + ": " + text);
 		}
 
+        if(!Mod::get()->getSettingValue<bool>("popup")) return;
+
 		FLAlertLayer::create(
 			"Copied!",
 			"Comment copied to clipboard.",
 			"OK"
 		)->show();
+        return;
 	}
 };
