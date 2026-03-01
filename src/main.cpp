@@ -8,14 +8,14 @@ class $modify(CommentCopyCell, CommentCell) {
 
 	void loadFromComment(GJComment* comment) {
 		CommentCell::loadFromComment(comment);
-		if (!this->m_comment->m_isSpam && !this->getChildByID("copy-menu"_spr)) {
+		if (!this->m_comment->m_isSpam && !this->getChildByID(Mod::get()->getID() + "/copy-comment")) {
             addCopyButton();
         }
 	}
 
 	void onUnhide(CCObject* sender) {
 		CommentCell::onUnhide(sender);
-		if (!this->getChildByID("copy-menu"_spr)) {
+		if (!this->getChildByID(Mod::get()->getID() + "/copy-comment")) {
             addCopyButton();
         }
 	}
