@@ -24,7 +24,6 @@ class $modify(CommentCopyCell, CommentCell) {
         auto menu = CCMenu::create();
         menu->setPosition({0, 0});
         this->addChild(menu, 1); 
-
         
         auto sprite = ButtonSprite::create("Copy");
         sprite->setScale(0.5f);
@@ -34,6 +33,7 @@ class $modify(CommentCopyCell, CommentCell) {
             this,
             menu_selector(CommentCopyCell::onCopy)
         );
+        btn->setID(Mod::get()->getID() + "/copy-comment");
 
         auto size = this->getContentSize();
         btn->setPosition({
