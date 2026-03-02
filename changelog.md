@@ -16,3 +16,6 @@
 # 1.0.4
 - some codes to prevent the crash
 - i hope this works
+
+# 1.0.5
+- call ..::clipboard::write onece
