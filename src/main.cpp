@@ -30,7 +30,6 @@ class $modify(CommentCopyCell, CommentCell) {
         auto sprite = CCSprite::createWithSpriteFrameName("GJ_copyBtn_001.png");
         sprite->setScale(0.5f);
 
-        auto size = this->getContentSize();
         CCPoint pos = {240.f, 60.f};
         if(this->m_compactMode) {
             pos.setPoint(240.f,28.f);
