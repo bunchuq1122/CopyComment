@@ -1,6 +1,7 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/CommentCell.hpp>
 #include <Geode/utils/cocos.hpp>
+#include <Geode/utils/general.hpp>
 
 using namespace geode::prelude;
 
@@ -23,18 +24,18 @@ class $modify(CommentCopyCell, CommentCell) {
 	}
 
 	void addCopyButton() {
-        auto menu = CCMenu::create();
-        menu->setPosition({0, 0});
-        this->addChild(menu, 1); 
+        if (this->getChildByID(Mod::get()->getID() + "/copy-comment")) return;
         
         auto sprite = CCSprite::createWithSpriteFrameName("GJ_copyBtn_001.png");
+        if (!sprite) return;
+
         sprite->setScale(0.5f);
 
         CCPoint pos = {240.f, 60.f};
         if(this->m_compactMode) {
             pos.setPoint(240.f,28.f);
         }
-        if (this->m_comment->m_hasLevelID) {
+        if (this->m_comment && this->m_comment->m_hasLevelID) {
             pos.setPoint(160.f,60.f);
         }
         if(this->m_accountComment) {
@@ -46,8 +47,12 @@ class $modify(CommentCopyCell, CommentCell) {
             this,
             menu_selector(CommentCopyCell::onCopy)
         );
-        btn->setID(Mod::get()->getID() + "/copy-comment");
         btn->setPosition(pos);
+
+        auto menu = CCMenu::create();
+        menu->setID(Mod::get()->getID() + "/copy-comment");
+        menu->setPosition({0, 0});
+        this->addChild(menu, 1); 
 
         menu->addChild(btn);
     }
@@ -57,6 +62,9 @@ class $modify(CommentCopyCell, CommentCell) {
 		if (!m_comment) return;
 
 		std::string text = m_comment->m_commentString;
+        if (text == "" || !geode::utils::clipboard::write(text)) {
+            FLAlertLayer::create("Error!", "comment not found or failed to load geode utils", "ok")->show();
+        }
 
 		if (!Mod::get()->getSettingValue<bool>("copyusername")) {
 			geode::utils::clipboard::write(text);

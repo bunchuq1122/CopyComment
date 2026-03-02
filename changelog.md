@@ -12,3 +12,7 @@
 # 1.0.3
 - unused code has been removed.
 - wrong version fixed(v1.0.3 -> v1.0.2)
+
+# 1.0.4
+- some codes to prevent the crash
+- i hope this works
