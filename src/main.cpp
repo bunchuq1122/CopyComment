@@ -10,7 +10,7 @@ class $modify(CommentCopyCell, CommentCell) {
 	void loadFromComment(GJComment* comment) {
 		CommentCell::loadFromComment(comment);
         auto id = Mod::get()->getID() + "/copy-comment";
-		if (!this->m_comment->m_isSpam && !this->getChildByID(id)) {
+		if (this->m_comment && !this->m_comment->m_isSpam && !this->getChildByID(id)) {
             addCopyButton();
         }
 	}
@@ -62,14 +62,15 @@ class $modify(CommentCopyCell, CommentCell) {
 		if (!m_comment) return;
 
 		std::string text = m_comment->m_commentString;
-        if (text == "" || !geode::utils::clipboard::write(text)) {
-            FLAlertLayer::create("Error!", "comment not found or failed to load geode utils", "ok")->show();
-        }
 
 		if (!Mod::get()->getSettingValue<bool>("copyusername")) {
-			geode::utils::clipboard::write(text);
+			if (!geode::utils::clipboard::write(text)) {
+                FLAlertLayer::create("Error!", "comment not found or failed to load geode utils", "ok")->show();
+            }
 		}else {
-			geode::utils::clipboard::write("@" + m_comment->m_userName + ": " + text);
+			if (!geode::utils::clipboard::write("@" + m_comment->m_userName + ": " + text)) {
+                FLAlertLayer::create("Error!", "comment not found or failed to load geode utils", "ok")->show();
+            }
 		}
 
         if(!Mod::get()->getSettingValue<bool>("popup")) return;
